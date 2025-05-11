@@ -1,5 +1,11 @@
-import { create } from 'zustand';
-import axios from 'axios';
+import { create } from "zustand";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
+
+const api = import.meta.env.MODE === "development"
+  ? "http://localhost:5000/api"
+  : "/api";
 
 export const useUserStore = create((set) => ({
   user: null,
@@ -11,10 +17,11 @@ export const useUserStore = create((set) => ({
   fetchProfile: async () => {
     try {
       set({ loading: true });
-      const { data } = await axios.get('/api/user/profile');
+      const { data } = await axios.get(`${api}/users/profile`);
       set({ user: data, loading: false });
     } catch (error) {
-      set({ error: error.response?.data?.message || 'Failed to fetch profile', loading: false });
+      console.error("Error in fetchProfile:", error);
+      set({ error: error.response?.data?.message || "Failed to fetch profile", loading: false });
     }
   },
 
@@ -22,10 +29,11 @@ export const useUserStore = create((set) => ({
   fetchHistory: async () => {
     try {
       set({ loading: true });
-      const { data } = await axios.get('/api/user/history');
+      const { data } = await axios.get(`${api}/users/history`);
       set({ history: data, loading: false });
     } catch (error) {
-      set({ error: error.response?.data?.message || 'Failed to fetch history', loading: false });
+      console.error("Error in fetchHistory:", error);
+      set({ error: error.response?.data?.message || "Failed to fetch history", loading: false });
     }
   },
 
@@ -33,10 +41,11 @@ export const useUserStore = create((set) => ({
   updateProfile: async (updatedData) => {
     try {
       set({ loading: true });
-      const { data } = await axios.patch('/api/user/update-profile', updatedData);
+      const { data } = await axios.patch(`${api}/users/update-profile`, updatedData);
       set({ user: data, loading: false });
     } catch (error) {
-      set({ error: error.response?.data?.message || 'Failed to update profile', loading: false });
+      console.error("Error in updateProfile:", error);
+      set({ error: error.response?.data?.message || "Failed to update profile", loading: false });
     }
   },
 
@@ -44,15 +53,16 @@ export const useUserStore = create((set) => ({
   uploadProfileImage: async (formData) => {
     try {
       set({ loading: true });
-      const { data } = await axios.put('/api/user/profile-image', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      const { data } = await axios.put(`${api}/users/profile-image`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
       set((state) => ({
         user: { ...state.user, profileImage: data.profileImage },
         loading: false,
       }));
     } catch (error) {
-      set({ error: error.response?.data?.message || 'Failed to upload profile image', loading: false });
+      console.error("Error in uploadProfileImage:", error);
+      set({ error: error.response?.data?.message || "Failed to upload profile image", loading: false });
     }
   },
 

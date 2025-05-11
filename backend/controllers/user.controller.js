@@ -10,7 +10,7 @@ export const getUserProfile = async (req, res) => {
     res.status(200).json({
       username: user.username,
       email: user.email,
-      profileImage: user.profileImage,
+      profileImage: user.profilePicUrl,
       createdAt: user.createdAt,
     });
   } catch (error) {

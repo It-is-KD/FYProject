@@ -80,7 +80,7 @@ export const useAuthStore = create((set) => ({
   checkAuth: async () => {
     set({ isCheckingAuth: true });
     try {
-      const res = await axios.get(`${API_BASE}/user/profile`);
+      const res = await axios.get(`${API_BASE}/users/profile`);
       set({
         user: {
           username: res.data.username,

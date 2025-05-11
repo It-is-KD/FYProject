@@ -2,7 +2,11 @@ import User from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
-const JWT_SECRET = process.env.JWT_SECRET || "superstrongsecret123";
+import dotenv from "dotenv";
+dotenv.config();
+
+const JWT_SECRET = process.env.JWT_SECRET;
+console.log("JWT_SECRET in auth.controller:", JWT_SECRET);
 
 // Helper: Generate JWT
 const generateToken = (userId) => {

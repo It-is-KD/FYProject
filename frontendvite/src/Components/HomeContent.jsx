@@ -26,7 +26,7 @@ const Home = () => {
           <h2 className="text-5xl font-bold mb-6 text-white">Albumify</h2>
           <p className="text-xl mb-8 text-white">Where AI Meets Memories - Transform set Photos into Smart, Organized Albums</p>
             <div className="flex justify-center gap-4 mb-16">
-            <NavLink to="/upload">
+            <NavLink to="/signup">
             <Button shadowcolor="black" className="text-white font-semibold
         bg-gradient-to-r from-[#551f2b] via-[#3a1047] to-[#1e0144]
         hover:from-[#6a2735] hover:via-[#4d1459] hover:to-[#2a0161]
