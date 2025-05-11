@@ -1,7 +1,7 @@
 import express from 'express';
 import multer from 'multer'; 
 import { uploadReferenceImage, uploadPoolImages } from '../controllers/upload.controller.js';
-import { protect } from '../middleware/auth.middleware.js';
+import { protect } from '../middleware/auth.middleware.js';// Assuming you have a multer middleware for file validation
 
 const router = express.Router();
 

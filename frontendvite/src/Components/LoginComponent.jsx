@@ -1,15 +1,16 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useAuthStore } from '../store/useAuthStore';
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
-    username: "",
     email: "",
     password: "",
   });
 
-  // Initialize useNavigate outside the conditional block
   const navigate = useNavigate();
+
+  const { login, isLoading, error } = useAuthStore()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,10 +20,20 @@ export default function LoginPage() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // In a real app, you would handle authentication here
-    navigate("/dashboard");
+
+  try {
+    // Calling login from the store 
+    await login({
+      email: formData.email,
+      password: formData.password
+    });
+    navigate("/profile"); // Navigate to home page after successful signup
+  } catch (err) {
+    // Handle any error if login fails
+    console.error(err);
+  }
   };
 
   return (
@@ -33,18 +44,6 @@ export default function LoginPage() {
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="username" className="text-gray-300 block mb-1 text-sm">Username</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              className="w-full p-2.5 rounded-md bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
-              required
-            />
-          </div>
 
           <div>
             <label htmlFor="email" className="text-gray-300 block mb-1 text-sm">Email</label>

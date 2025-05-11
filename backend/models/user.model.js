@@ -17,6 +17,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  profilePicUrl: {
+    type: String,
+    default: "",
+  },
+  profilePicPublicId: {
+    type: String,
+    default: "",
+  },
   createdAt: {
     type: Date,
     default: Date.now,
