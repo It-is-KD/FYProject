@@ -6,14 +6,6 @@ import numpy as np
 from typing import Dict, List, Tuple, Any, Optional
 import torch
 
-"""
-#Add the model directory to the Python path
-sys.path.append(os.path.abspath("model"))
-
-from main import FaceClassifier
-from sklearn.metrics.pairwise import cosine_similarity
-"""
-
 # Get the absolute path to the project root directory
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 sys.path.append(project_root)
@@ -36,7 +28,7 @@ class ClassifierService:
         self.classifier = FaceClassifier(
             model_path=model_path,
             device=device,
-            similarity_threshold=0.75,
+            similarity_threshold=0.80,
             embedding_dim=512,
             use_arcface=True
         )
